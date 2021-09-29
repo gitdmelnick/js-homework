@@ -41,9 +41,9 @@ function logSumAndQuotient() {
   const powerOfTen = (times) => 10 ** decimalPlaces(times);
 
   let sum = Number(a) + Number(b);
-  let quontinent =
+  let quotient =
     (((Number(a) * powerOfTen(a)) / Number(b)) * powerOfTen(b)) /
     (powerOfTen(a) * powerOfTen(b));
 
-  console.log(`Ответ: ${sum}, ${quontinent}.`);
+  console.log(`Ответ: ${sum}, ${quotient}.`);
 }
