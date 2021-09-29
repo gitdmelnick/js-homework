@@ -1,6 +1,6 @@
 function convertNumberToBase() {
-  let number = prompt("Введите первое значение (число)");
-  let base = prompt("Введите значение системы счисления (число от 2 до 32)");
+  let number = prompt('Введите первое значение (число)');
+  let base = prompt('Введите значение системы счисления (число от 2 до 32)');
 
   const isNumericString = (str) =>
     !isNaN(str) && !isNaN(parseFloat(str)) && !/\s/.test(str);
@@ -10,7 +10,7 @@ function convertNumberToBase() {
     let result = (+number).toString(+base);
     console.log(result);
   } else {
-    console.log("Некорректный ввод!");
+    console.log('Некорректный ввод!');
   }
 }
 
@@ -18,21 +18,21 @@ function logSumAndQuotient() {
   const isNumericString = (str) =>
     !isNaN(str) && !isNaN(parseFloat(str)) && !/\s/.test(str);
 
-  let a = prompt("Введите первое значение");
+  let a = prompt('Введите первое значение');
   if (!isNumericString(a)) {
-    console.log("Некорректный ввод!");
+    console.log('Некорректный ввод!');
     return;
   }
 
-  let b = prompt("Введите второе значение");
+  let b = prompt('Введите второе значение');
   if (!isNumericString(b)) {
-    console.log("Некорректный ввод!");
+    console.log('Некорректный ввод!');
     return;
   }
 
   const decimalPlaces = (str) => {
-    if (str.includes(".")) {
-      let fractions = str.split(".").pop();
+    if (str.includes('.')) {
+      let fractions = str.split('.').pop();
       return fractions.length;
     }
     return 0;
