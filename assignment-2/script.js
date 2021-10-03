@@ -13,9 +13,28 @@ function makeObjectDeepCopy(original) {
 }
 
 function selectFromInterval(array, start, end) {
-  if(array.some(element => isNaN(parseInt(element))) || isNaN(parseInt(start)) || isNaN(parseInt(end))) {
+  if(array.some(element => !Number.isInteger(element) || !Number.isInteger(start) || !Number.isInteger(end))) {
     throw new Error('Ошибка!');
   } else {
     return array.filter(element => element >= Math.min(start, end) && element <= Math.max(start, end));
+  }
+}
+
+const myIterable = {
+  [Symbol.iterator]() {
+    this.current = this.from;
+    return this;
+  },
+
+  next() {
+    if(this.to < this.from || !Number.isInteger(this.from) || !Number.isInteger(this.to)) {
+      throw new Error('Ошибка!');
+    }
+
+    if(this.current <= this.to) {
+      return { done: false, value: this.current++ };
+    } else {
+      return { done: true };
+    }
   }
 }
