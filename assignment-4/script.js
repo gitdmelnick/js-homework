@@ -1,6 +1,6 @@
 function concatStrings(str, separator) {
   return function (nextStr) {
-    if (typeof nextStr !== 'string' || nextStr.length === 0) {
+    if (typeof nextStr !== 'string') {
       return str;
     }
     return concatStrings(
@@ -35,27 +35,29 @@ class Calculator {
   }
 
   logSub() {
-    console.log(Math.round(this.x - this.y));
+    console.log(this.x - this.y);
   }
 
   logDiv() {
-    if(this.y === 0) {
+    if (this.y === 0) {
       throw new Error('');
     }
-    console.log(Math.round(this.x / this.y));
+    console.log(this.x / this.y);
   }
 
-  setX(value) {
-    if (!Number.isInteger(x)) {
+  setX(num) {
+    if (!Number.isInteger(num)) {
       throw new Error('');
     }
-    this.x = value;
+    this.x = num;
   }
 
-  setY(value) {
-    if (!Number.isInteger(y)) {
+  setY(num) {
+    if (!Number.isInteger(num)) {
       throw new Error('');
     }
-    this.y = value;
+    this.y = num;
   }
 }
+
+
