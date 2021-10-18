@@ -141,6 +141,4 @@ class Car {
 
 }
 
-const car = new Car();
-
 module.exports = { Car };
