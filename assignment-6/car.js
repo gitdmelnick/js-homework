@@ -9,14 +9,6 @@ class Car {
   #isStarted = false;
   #mileage = 0;
 
-  constructor(brand, model, yearOfManufacturing, maxSpeed, fuelConsumption) {
-    this.#brand = brand;
-    this.#model = model;
-    this.#yearOfManufacturing = yearOfManufacturing;
-    this.#maxSpeed = maxSpeed;
-    this.#fuelConsumption = fuelConsumption;
-  }
-
   start() {
     if (this.#isStarted) {
       throw new Error('Машина уже заведена');
@@ -32,8 +24,11 @@ class Car {
   }
 
   fillUpGasTank(litres) {
-    if (!Number.isSafeInteger(litres) || litres <= 0) {
+    if (typeof litres !== 'number' || litres <= 0) {
       throw new Error('Неверное количество топлива для заправки');
+    }
+    if (!this.#maxFuelVolume) {
+      throw new Error('Не задан максимальный объем топливного бака');
     }
     if (this.#currentFuelVolume + litres > this.#maxFuelVolume) {
       throw new Error('Топливный бак переполнен');
@@ -42,11 +37,14 @@ class Car {
   }
 
   drive(speed, time) {
-    if (!Number.isSafeInteger(speed) || speed <= 0) {
+    if (typeof speed !== 'number' || speed <= 0) {
       throw new Error('Неверная скорость');
     }
-    if (!Number.isSafeInteger(time) || time <= 0) {
+    if (typeof time !== 'number' || time <= 0) {
       throw new Error('Неверное количество часов');
+    }
+    if (!this.#fuelConsumption) {
+      throw new Error('Не задана максимальная скорость');
     }
     if (speed > this.#maxSpeed) {
       throw new Error('Машина не может ехать так быстро');
@@ -54,11 +52,14 @@ class Car {
     if (!this.#isStarted) {
       throw new Error('Машина должна быть заведена, чтобы ехать');
     }
-    let consumedFuel = (speed * time / 100 * this.#fuelConsumption)
-    if (consumedFuel > this.#currentFuelVolume) {
-      throw new Error('Недостаточно топлива')
+    if (!this.#fuelConsumption) {
+      throw new Error('Не задано потребление топлива');
     }
-    this.#currentFuelVolume -= consumedFuel;
+    let fuelConsumed = (speed * time / 100 * this.#fuelConsumption)
+    if (fuelConsumed > this.#currentFuelVolume) {
+      throw new Error('Недостаточно топлива');
+    }
+    this.#currentFuelVolume -= fuelConsumed;
     this.#mileage += speed * time;
   }
 
@@ -67,10 +68,9 @@ class Car {
   }
 
   set brand(str) {
-    if(typeof str !== 'string' || str.length < 1 || str.length > 50) {
-      throw new Error('');
+    if(typeof str === 'string' && str.length >= 1 && str.length <= 50) {
+      this.#brand = str;
     }
-    this.#brand = str;
   }
 
   get model() {
@@ -78,10 +78,10 @@ class Car {
   }
 
   set model(str) {
-    if(typeof str !== 'string' || str.length < 1 || str.length > 50) {
-      throw new Error('');
+    if(typeof str === 'string' && str.length >= 1 && str.length <= 50) {
+      this.#model = str;
     }
-    this.#model = str;
+
   }
 
   get yearOfManufacturing() {
@@ -89,10 +89,10 @@ class Car {
   }
 
   set yearOfManufacturing(year) {
-    if(!Number.isInteger(year) || year < 1900 || year > 2021) {
-      throw new Error('');
+    if(Number.isInteger(year) && year >= 1900 && year <= 2021) {
+      this.#yearOfManufacturing = year;
     }
-    this.#yearOfManufacturing = year;
+    
   }
 
   get maxSpeed() {
@@ -100,10 +100,10 @@ class Car {
   }
 
   set maxSpeed(value) {
-    if(!Number.isInteger(value) || value < 100 || value > 300) {
-      throw new Error('');
+    if(typeof value === 'number' && value >= 100 && value <= 300) {
+      this.#maxSpeed = value;
     }
-    this.#maxSpeed = value;
+    
   }
 
   get maxFuelVolume() {
@@ -111,10 +111,9 @@ class Car {
   }
 
   set maxFuelVolume(value) {
-    if(!Number.isInteger(value) || value < 5 || value > 20) {
-      throw new Error('');
+    if(typeof value === 'number' && value >= 5 && value <= 20) {
+      this.#maxFuelVolume = value;
     }
-    this.#maxFuelVolume = value;
   }
 
   get fuelConsumption() {
@@ -122,10 +121,10 @@ class Car {
   }
 
   set fuelConsumption(value) {
-    if(!Number.isSafeInteger(value)) {
-      throw new Error('');
+    if(typeof value === 'number' && value > 0) {
+      this.#fuelConsumption = value;
     }
-    this.#fuelConsumption = value;
+
   }
 
   get currentFuelVolume() {
@@ -142,6 +141,6 @@ class Car {
 
 }
 
-// const car = new Car('Mercedes', 'SL350', 1972, 250, 5);
+const car = new Car();
 
-// module.exports = { Stack };
+module.exports = { Car };
