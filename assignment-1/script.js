@@ -7,7 +7,7 @@ function convertNumberToBase() {
   const isValidRangeString = (str) => /^(?:[2-9]|[1-2][0-9]|3[0-2])$/.test(str);
 
   if (isNumericString(number) && isValidRangeString(base)) {
-    let result = (+number).toString(+base);
+    let result = +number.toString(+base);
     console.log(result);
   } else {
     console.log('Некорректный ввод!');

@@ -5,9 +5,9 @@ Array.prototype.myFilter = function (callback, thisArg) {
     thisArg = this;
   }
 
-  for (let i = 0; i < thisArg.length; i++) {
-    if (callback(thisArg[i], i, thisArg)) {
-      filtered.push(thisArg[i]);
+  for (let i = 0; i < this.length; i++) {
+    if (callback.call(thisArg, this[i], i, this)) {
+      filtered.push.c;
     }
   }
 

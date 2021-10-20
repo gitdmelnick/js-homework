@@ -141,4 +141,7 @@ class Car {
 
 }
 
-module.exports = { Car };
+let car = new Car();
+car.maxFuelVolume = 20;
+car.maxSpeed = 150;
+// module.exports = { Car };
